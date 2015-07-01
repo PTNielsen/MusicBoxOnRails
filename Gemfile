@@ -14,20 +14,19 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'httparty'
 gem 'omniauth'
 gem 'omniauth-spotify'
+gem 'bootstrap_form'
+gem 'devise'
+gem 'figaro'
+gem 'pry-rails'
+gem 'quiet_assets'
+gem 'slim-rails'
+gem 'twitter-bootstrap-rails'
+gem 'rollbar'
 
 group :development, :test do
   gem 'spring'
 end
 
-
-gem 'bootstrap_form'
-gem 'devise'
-gem 'figaro'
-gem 'pg'
-gem 'pry-rails'
-gem 'quiet_assets'
-gem 'slim-rails'
-gem 'twitter-bootstrap-rails'
 group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -42,5 +41,5 @@ end
 group :production do
   gem 'rails_12factor'
   gem 'puma'
-  gem 'rollbar'
+  gem 'pg'
 end
