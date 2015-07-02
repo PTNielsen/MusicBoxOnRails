@@ -1,10 +1,10 @@
 var vote = function() {
-  var $vote_count = $(this).parent().children(".voter")
+  var vote_count = $(this).siblings(".voter")
   $.ajax("/vote", {
     method: "POST",
     data: {
-      value: $(this).data().voteValue,
-      song_title: $(this).data().songTitle
+      value: $(this).attr("data-vote-value"),
+      song_title: $(this).attr("data-song-title")
     },
     error: function() {alert("Something went wrong") },
     success: function(data) {
@@ -12,7 +12,7 @@ var vote = function() {
         alert("You are out of votes!")
       }
       else {
-        $vote_count.text(data)
+        vote_count.text(data)
       }
     }
   })
