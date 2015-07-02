@@ -8,11 +8,11 @@ var vote = function() {
     },
     error: function() {alert("Something went wrong") },
     success: function(data) {
-      if (typeof data!=='number') {
-        alert("You are out of votes!")
+      if (typeof data === 'number') {
+        vote_count.text(data)
       }
       else {
-        vote_count.text(data)
+        alert("You are out of votes!")
       }
     }
   })
