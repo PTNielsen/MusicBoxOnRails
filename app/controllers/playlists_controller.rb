@@ -10,5 +10,6 @@ class PlaylistsController < ApplicationController
 
   def show
      @playlist = Playlist.order(created_at: :asc).last
+     binding.pry
   end
 end

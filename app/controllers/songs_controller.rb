@@ -7,9 +7,9 @@ class SongsController < ApplicationController
   end
 
   def new
-    spotify_token = current_user.spotify_data["credentials"]["token"]
-    spot = SpotifyAPI.new (spotify_token)
-    spot_track = spot.get_track params[:artist], params[:title]
+    spotify_token = current_user.spotify_data["credentials"]["token"] if current_user.spotify_data
+      spot = SpotifyAPI.new(spotify_token)
+      spot_track = spot.get_track params[:artist], params[:title]
     if spot_track
       uri = spot_track[1]
       if true #current_user.num_of_songs_suggested_this_week <= 4 
@@ -21,10 +21,10 @@ class SongsController < ApplicationController
         ).first_or_create!
         current_user.votes.create! song: song, value: 1
       else
-        set_message "You have submitted too many songs this week. Try again later."
+        flash[:notice] = "You have submitted too many songs this week. Try again later."
       end
     else
-      set_message "No song found, please try again."
+      flash[:notice] = "No song found, please try again."
     end
     redirect_to("/")
   end
@@ -34,8 +34,7 @@ class SongsController < ApplicationController
   end
 
   def letter
-        results = []
-
+    results = []
     Song.all.each do |song|
       if song.title.downcase.start_with? params[:letter].downcase
         song_as_hash = {
@@ -45,7 +44,6 @@ class SongsController < ApplicationController
           spotify_uri:  song.uri,
           suggested_by: song.suggester.name
         }
-
         results.push song_as_hash
       end
     end
@@ -56,5 +54,4 @@ class SongsController < ApplicationController
     end
     return sorted_results.to_json
   end
-
 end
